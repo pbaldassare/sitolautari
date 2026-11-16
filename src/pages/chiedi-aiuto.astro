@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Video from '../components/Video.astro';
+import { org } from '../data/site';
+import { faqGroups } from '../data/faq';
+
+const faq = faqGroups.find((g) => g.id === 'accesso')!.items;
+---
+<Base title="Chiedi aiuto – Come entrare in comunità | Comunità Lautari" description="Sei dipendente da droghe o alcol o lo è una persona cara? Chiamaci al 030 9918700. Accesso diretto o tramite SERT, SMI, NOA. Permanenza gratuita.">
+  <PageHero eyebrow="Chiedi aiuto" title="Spezza la dipendenza. <em>Non sei solo.</em>" img="/img/il-percorso-in-comunita-02.webp" alt="La sede della comunità a Pozzolengo">
+    <p>Che tu chieda per te o per una persona cara, il primo passo è una telefonata. Ti ascoltiamo e ti spieghiamo come funziona, senza impegno.</p>
+  </PageHero>
+
+  <section class="wrap">
+    <div class="contact-row">
+      <div class="contact-card"><h2 class="card-title">Chiama</h2><a href={org.phoneHref}>{org.phone}</a></div>
+      <div class="contact-card"><h2 class="card-title">Scrivi una mail</h2><a href={`mailto:${org.email}`}>{org.email}</a></div>
+      <div class="contact-card"><h2 class="card-title">Per posta</h2><strong style="font-size:1rem">Comunità Lautari<br />Via Monte Ingrana, 2 – 25010 Pozzolengo (BS)</strong></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Come accedere</p>
+        <h2>Due strade per entrare</h2>
+        <h3>1. Direttamente</h3>
+        <p class="muted">Chiami o vieni di persona e fissi un colloquio con gli operatori dell’accoglienza.</p>
+        <h3>2. Tramite i servizi</h3>
+        <p class="muted">Su invio del SERT (Servizi Pubblici per le Dipendenze), dello SMI (Servizio Multidisciplinare Integrato), del NOA (Nucleo Operativo Alcoldipendenze), di associazioni di volontariato, cooperative sociali, comunità terapeutiche o case di accoglienza.</p>
+        <p class="muted">In questo caso il servizio ci invia una relazione psico-sociale con la storia della persona (terapie, percorsi precedenti, rapporto con il servizio) per valutare il caso nel suo insieme. Durante il percorso restiamo in contatto costante con gli operatori referenti.</p>
+      </div>
+      <div class="donate">
+        <h3>Chi possiamo accogliere</h3>
+        <ul class="checks">
+          <li>Persone dipendenti da droghe e/o alcol</li>
+          <li>Persone con situazioni sanitarie compromesse, se compatibili con il programma</li>
+          <li>Arresti domiciliari</li>
+          <li>Detenzione domiciliare</li>
+          <li>Affidamento provvisorio</li>
+          <li>Affidamento in prova al servizio sociale</li>
+          <li>Obbligo di dimora</li>
+          <li>Sospensione dell’esecuzione della pena</li>
+        </ul>
+        <p class="muted" style="margin:0"><strong>La permanenza è completamente gratuita</strong>: nessuna retta per le famiglie né per il SSN.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" id="famiglie">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Per le famiglie</p>
+        <h2>La famiglia fa parte del percorso</h2>
+        <p>Ricostruire un rapporto sano con la famiglia è uno dei fattori più importanti per la riuscita del percorso. Per questo organizziamo incontri tra ospiti e familiari e gruppi di famiglie, seguiti dallo psicologo e dagli educatori.</p>
+        <h3>Telefonate</h3>
+        <p>Una volta al mese, il <strong>lunedì o il venerdì dalle 20 alle 21</strong>, per avere notizie del percorso e parlare con il proprio caro, secondo quanto previsto dal suo progetto individuale.</p>
+        <h3>Cosa chiediamo ai familiari</h3>
+        <ul class="checks">
+          <li>Collaborare con gli operatori e seguire le loro indicazioni</li>
+          <li>Partecipare alle iniziative della comunità</li>
+          <li>Non portare oggetti senza l’autorizzazione del personale</li>
+          <li>Non consegnare nulla direttamente al proprio caro se non concordato</li>
+        </ul>
+        <a class="btn btn-primary" href="/doc/La-famiglia-viva.pdf">Scarica il libretto “Droga e famiglia”</a>
+      </div>
+      <Video id="9haHj1aV7HM" poster="/img/vita-in-comunita-lautari-01.webp" title="La nostra video testimonianza" />
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap" style="max-width:860px">
+      <div class="section-head">
+        <p class="eyebrow">Domande frequenti</p>
+        <h2>Le risposte alle domande più comuni</h2>
+      </div>
+      <div class="acc">
+        {faq.map((f) => <details><summary>{f.q}</summary><div class="acc-body">{f.a}</div></details>)}
+      </div>
+      <p style="margin-top:2rem"><a class="btn btn-ghost btn-sm" href="/faq">Tutte le domande frequenti →</a></p>
+      <p class="muted">Non trovi la risposta? Chiamaci al <a href={org.phoneHref}><strong>{org.phone}</strong></a> oppure <a href="/doc/brochure-informativa-lautari.pdf">scarica la brochure informativa</a>.</p>
+    </div>
+  </section>
+</Base>

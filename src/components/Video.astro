@@ -1,0 +1,36 @@
+---
+// Facciata: l'iframe YouTube (e i suoi cookie) si carica solo con il consenso "contenuti multimediali".
+interface Props { id: string; poster: string; title: string }
+const { id, poster, title } = Astro.props;
+---
+<div class="video">
+  <button type="button" data-yt={id} data-title={title} style={`background-image:url(${poster})`} aria-label={`Guarda il video: ${title}`}>
+    <span>▶ Guarda il video</span>
+  </button>
+  <div class="video-consent" hidden>
+    <p>Per guardare il video serve il consenso ai cookie di YouTube.</p>
+    <button type="button" class="btn btn-accent btn-sm">Accetta e guarda</button>
+  </div>
+</div>
+<script>
+  import { getConsent, setConsent } from '../lib/consent';
+
+  const play = (b: HTMLButtonElement) => {
+    const f = document.createElement('iframe');
+    f.src = `https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0`;
+    f.title = b.dataset.title!;
+    f.allow = 'autoplay; encrypted-media; picture-in-picture';
+    f.allowFullscreen = true;
+    b.parentElement!.querySelector('.video-consent')!.remove();
+    b.replaceWith(f);
+  };
+
+  document.querySelectorAll<HTMLButtonElement>('[data-yt]').forEach((b) => {
+    const ask = b.parentElement!.querySelector<HTMLElement>('.video-consent')!;
+    b.addEventListener('click', () => (getConsent()?.media ? play(b) : (ask.hidden = false)));
+    ask.querySelector('button')!.addEventListener('click', () => {
+      setConsent({ media: true });
+      play(b);
+    });
+  });
+</script>

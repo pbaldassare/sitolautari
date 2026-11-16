@@ -1,0 +1,182 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+const strumenti = [
+  { t: 'Strumenti comunitari', l: ['La relazione educativa', 'La condivisione', 'La gestione del tempo libero', 'Le regole', 'Spazi con i familiari', 'Vita di gruppo'] },
+  { t: 'Strumenti individuali', l: ['Terapia farmacologica', 'L’ASI', 'Cartella personale e PEI', 'Colloqui con educatore, psicologo e psichiatra', 'Colloqui con l’assistente sociale', 'Verifiche esterne (da poche ore ad alcuni giorni)'] },
+  { t: 'Strumenti di gruppo', l: ['Attività ergoterapica', 'Gruppi a tema', 'Riunioni organizzative', 'Serate culturali', 'Uscite di gruppo', 'Gruppi di auto-mutuo-aiuto'] },
+];
+
+const feriale = [
+  ['7:00', 'Sveglia'], ['7:30 – 8:00', 'Colazione'], ['8:00 – 12:00', 'Attività lavorativa'], ['12:10 – 13:30', 'Pranzo'],
+  ['13:30 – 17:30', 'Attività lavorativa'], ['17:30 – 19:30', 'Doccia e relazione scritta'], ['19:30 – 20:30', 'Cena'],
+  ['21:00 – 23:00', 'Riunione di gruppo, sport, attività culturali o ludiche'], ['23:00', 'Buonanotte!'],
+];
+const festivo = [
+  ['8:00', 'Sveglia'], ['8:30 – 9:00', 'Colazione'], ['9:00 – 12:00', 'Pulizie approfondite di camere e struttura'], ['12:10 – 13:30', 'Pranzo'],
+  ['13:30 – 18:00', 'Attività ricreative: sport, gite…'], ['18:00 – 19:30', 'Doccia e relazione scritta'], ['19:30 – 20:30', 'Cena'],
+  ['20:30 – 23:00', 'Sport, attività culturali o ludiche'], ['23:00', 'Buonanotte'],
+];
+
+const attivita = [
+  ['la-cantina-lautari', 'La cantina', 'Lavoro agricolo'],
+  ['il-vigneto-lautari', 'Il vigneto', 'Lavoro agricolo'],
+  ['allevamento-lautari', 'L’allevamento', 'Lavoro agricolo'],
+  ['falegnameria-lautari', 'La falegnameria', 'Laboratorio artigiano'],
+  ['il-restauro-lautari', 'Il restauro', 'Laboratorio artigiano'],
+  ['autofficina-lautari', 'L’autofficina', 'Attività interna'],
+  ['la-cucina-lautari', 'La cucina', 'Attività interna'],
+  ['lavanderia-lautari', 'La lavanderia', 'Attività interna'],
+  ['cantiere-edile-lautari', 'Il cantiere edile', 'Attività interna'],
+];
+---
+<Base title="Il percorso di recupero – Comunità Lautari" description="Le quattro fasi del percorso riabilitativo, la giornata tipo, le regole e il reinserimento lavorativo nella Comunità Lautari." >
+  <PageHero eyebrow="Il percorso" title="Un percorso costruito <em>sulla persona</em>" img="/img/vita-in-comunita-lautari-01.webp" alt="Un colloquio di gruppo con gli operatori">
+    <p>Il nostro approccio è umanistico e sistemico-relazionale: al centro c’è la persona e la sua qualità di vita. L’obiettivo è la completa riabilitazione e un nuovo stile di vita fondato su autonomia, responsabilità, solidarietà, fiducia e autostima.</p>
+  </PageHero>
+
+  <section class="section section-dark">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Le fasi</p>
+        <h2>Dai 3 ai 5 anni, in quattro fasi</h2>
+        <p class="lead">La durata è concordata in base ai bisogni e alle risorse di ciascuno. Il passaggio da una fase all’altra avviene dopo momenti di verifica con il responsabile terapeutico e gli operatori.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Pre-accoglienza</h3><p>Colloqui conoscitivi. Si accede direttamente, su appuntamento, o tramite SERT, SMI, NOA, associazioni e comunità che collaborano con noi.</p></li>
+        <li><h3>Accoglienza</h3><p>La persona entra nei ritmi della comunità e, con la gestione del tempo e piccoli lavori manuali, riscopre il valore della responsabilità, del gruppo e delle regole.</p></li>
+        <li><h3>Comunità residenziale</h3><p>Il cuore del programma, in collaborazione costante con i servizi pubblici: incontri periodici per verificare l’andamento e aggiornare gli obiettivi.</p></li>
+        <li><h3>Reinserimento</h3><p>Il ritorno nella società, con gli strumenti per una vita autonoma e dignitosa e la possibilità di lavorare nelle nostre cooperative.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Assistenza e monitoraggio</p>
+        <h2>Gli strumenti che accompagnano ogni fase</h2>
+        <p class="lead">L’équipe è formata da psicologo, medico, psichiatra, educatori, assistente sociale, operatori di comunità e maestri del lavoro.</p>
+      </div>
+      <div class="grid g3">
+        {strumenti.map((s) => (
+          <div class="card"><div class="card-body"><h3>{s.t}</h3><ul class="checks">{s.l.map((i) => <li>{i}</li>)}</ul></div></div>
+        ))}
+      </div>
+      <div class="callout" style="margin-top:1.25rem;background:var(--accent-soft);color:var(--ink)">
+        <div>
+          <h3 style="font-size:1.5rem">Monitoraggio post-care</h3>
+          <p style="margin:0">Per almeno sei mesi dopo la fine del programma, chi aderisce viene seguito ogni mese da un operatore, al telefono o in struttura: difficoltà, casa, lavoro, famiglia, astensione o ricadute, rapporti con i servizi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" id="vita">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Vita in comunità</p>
+        <h2>Una giornata tipo</h2>
+        <p class="lead">La comunità è un ambiente familiare. I pasti sono un momento importante per stare insieme: si inizia e si finisce insieme, dopo un minuto di silenzio per riflettere sul senso del proprio percorso.</p>
+      </div>
+      <div class="schedule">
+        <div class="donate"><h3>Dal lunedì al sabato</h3><ol>{feriale.map(([o, t]) => <li><b>{o}</b><span>{t}</span></li>)}</ol></div>
+        <div class="donate"><h3>Domenica e festivi</h3><ol>{festivo.map(([o, t]) => <li><b>{o}</b><span>{t}</span></li>)}</ol></div>
+      </div>
+      <p class="muted" style="margin-top:1rem;font-size:.92rem">Gli orari possono variare in base al clima, al lavoro, alle esigenze della struttura o a colloqui e riunioni.</p>
+      <div class="gallery" style="margin-top:2.5rem">
+        <img src="/img/sport-vita-in-comunita-01.webp" alt="Giornata in piscina" loading="lazy" />
+        <img src="/img/sport-vita-in-comunita-02.webp" alt="Corsa su strada" loading="lazy" />
+        <img src="/img/sport-vita-in-comunita-04.webp" alt="Spettacolo di danza" loading="lazy" />
+        <img src="/img/vita-in-comunita-lautari-03.webp" alt="Un piatto preparato in cucina" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="regole">
+    <div class="wrap" style="max-width:860px">
+      <div class="section-head">
+        <p class="eyebrow">Per gli ospiti</p>
+        <h2>Regole, diritti e doveri</h2>
+        <p class="lead">Le regole non sono una punizione: servono a imparare uno stile di vita più sano di quello precedente.</p>
+      </div>
+      <div class="acc">
+        <details>
+          <summary>Regole di vita comunitaria</summary>
+          <div class="acc-body"><ul class="checks">
+            <li>Consumo di sigarette limitato, solo all’esterno degli edifici e mai sui mezzi della comunità</li>
+            <li>Bevande alcoliche non permesse</li>
+            <li>Ordine e pulizia personale e degli ambienti</li>
+            <li>Rispetto di sé e degli altri</li>
+            <li>Rispetto degli orari di lavoro e del tempo libero, degli impegni e delle attività terapeutiche</li>
+            <li>Niente cibo fuori dai pasti né pasti individuali, salvo prescrizione medica</li>
+            <li>Pulizie e riordino spettano a tutto il gruppo; la domenica mattina si fanno le pulizie generali</li>
+            <li>Sigarette, radio, TV e riviste fanno parte della vita in comunità secondo la logica della gestione, non della dipendenza</li>
+          </ul></div>
+        </details>
+        <details>
+          <summary>I diritti degli ospiti</summary>
+          <div class="acc-body"><ul class="checks">
+            <li>Libertà nelle proprie scelte spirituali e religiose, nel rispetto della vita comunitaria</li>
+            <li>Essere curati nel rispetto della dignità umana e delle proprie convinzioni</li>
+            <li>Ricevere informazioni chiare sul proprio progetto educativo e terapeutico ed esprimere le proprie idee sul servizio</li>
+            <li>Mantenere i contatti con i familiari, nei modi previsti dal progetto individuale</li>
+            <li>Interrompere il percorso in qualsiasi momento</li>
+          </ul></div>
+        </details>
+        <details>
+          <summary>Gli obblighi degli ospiti</summary>
+          <div class="acc-body"><ul class="checks">
+            <li>Osservare le norme e gli orari della struttura</li>
+            <li>Partecipare alla cura dell’ambiente nell’ottica del mutuo aiuto fra pari</li>
+            <li>Divieto di introdurre sostanze e alcol e di qualsiasi violenza fisica o verbale, pena l’allontanamento</li>
+            <li>Mostrare agli operatori il contenuto di borse e abiti quando richiesto</li>
+            <li>Sottoporsi ai test di urine o saliva</li>
+            <li>Non allontanarsi senza autorizzazione: la fuga può essere considerata un’interruzione del percorso</li>
+            <li>Rispettare l’igiene personale e degli ambienti; niente linguaggio volgare, insulti o bestemmie</li>
+            <li>Assumere i farmaci prescritti</li>
+          </ul></div>
+        </details>
+        <details>
+          <summary>Norme di comportamento</summary>
+          <div class="acc-body"><ul class="checks">
+            <li>Ognuno è pienamente responsabile della propria vita e della struttura</li>
+            <li>Le esigenze del singolo non possono prevalere su quelle del gruppo</li>
+            <li>Non sono ammessi comportamenti a rischio di trasmissione di infezioni</li>
+            <li>Arredi e attrezzature sono di tutti e vanno usati con cura</li>
+            <li>La motivazione personale è l’elemento decisivo per la riuscita del percorso</li>
+            <li>Non si esalta lo stile di vita legato alla droga, al carcere o alla devianza</li>
+            <li>Tutti, a partire dall’ultimo arrivato, hanno pari dignità</li>
+            <li>Gli uomini curano barba e capelli; non sono ammessi orecchini, piercing, dermal e simili</li>
+            <li>Le responsabilità assegnate servono a crescere, non a esercitare autorità sugli altri</li>
+            <li>La vita di comunità si fonda su trasparenza e sincerità: l’omertà è vietata</li>
+            <li>Le relazioni con l’esterno, familiari compresi, sono valutate e mediate dallo staff</li>
+            <li>Nessun rapporto con persone che usano sostanze, abusano di alcol o hanno comportamenti illegali</li>
+            <li>Il cellulare può essere consentito in base alla fase del percorso</li>
+            <li>Le trasgressioni possono comportare provvedimenti disciplinari stabiliti dallo staff</li>
+          </ul></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" id="reinserimento">
+    <div class="wrap">
+      <div class="split" style="margin-bottom:3rem">
+        <div>
+          <p class="eyebrow">Reinserimento sociale e lavorativo</p>
+          <h2>Imparare un mestiere per ripartire</h2>
+          <p>Il lavoro sviluppa maturità, autonomia e senso di responsabilità, e rende ognuno protagonista del proprio cambiamento. Le attività si svolgono soprattutto nella sede di Pozzolengo, accanto a maestri del lavoro, con corsi di formazione per crescere professionalmente.</p>
+          <p>Finito il programma restiamo in contatto, e gli ex ospiti possono essere assunti nelle nostre cooperative.</p>
+        </div>
+        <img src="/img/sede-lautari-brescia-02.webp" alt="Veduta aerea della sede di Pozzolengo" loading="lazy" />
+      </div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">
+        {attivita.map(([img, t, s]) => (
+          <div class="work"><img src={`/img/${img}.webp`} alt="" width="120" height="120" loading="lazy" /><h3>{t}</h3><p>{s}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

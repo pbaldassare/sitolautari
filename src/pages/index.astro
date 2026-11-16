@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import Story from '../components/Story.astro';
+import { org } from '../data/site';
+import { storie } from '../data/storie';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NGO',
+  name: org.name,
+  legalName: org.legalName,
+  url: 'https://www.lautari.it',
+  logo: 'https://www.lautari.it/img/logo.png',
+  foundingDate: String(org.founded),
+  telephone: org.phone,
+  email: org.email,
+  taxID: org.cf,
+  sameAs: [org.facebook],
+  address: { '@type': 'PostalAddress', streetAddress: 'Via Monte Ingrana, 2', postalCode: '25010', addressLocality: 'Pozzolengo', addressRegion: 'BS', addressCountry: 'IT' },
+};
+---
+<Base title="Comunità Lautari – Comunità di recupero gratuita per dipendenze da droghe e alcol" description="Dal 1992 la Comunità Lautari accompagna gratuitamente persone dipendenti da droghe e alcol verso una nuova vita. 5 sedi in Italia. Chiama il 030 9918700." jsonLd={jsonLd}>
+
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div>
+        <p class="eyebrow">Comunità terapeutica dal 1992 · Gratuita</p>
+        <h1>Droghe o alcol? <em>Puoi uscirne.</em></h1>
+        <p class="lead">Accogliamo chi vuole smettere e accompagniamo le famiglie. Il percorso è gratuito: lavoro, relazioni, autonomia, per tornare a una vita tua.</p>
+        <div class="paths">
+          <a class="path path-help" href="/chiedi-aiuto">
+            <strong>Ho bisogno di aiuto</strong>
+            <span>Per me</span>
+            <i>Come entrare →</i>
+          </a>
+          <a class="path path-family" href="/chiedi-aiuto#famiglie">
+            <strong>Sono un familiare</strong>
+            <span>Per un figlio, un partner, un amico</span>
+            <i>Come aiutarlo →</i>
+          </a>
+          <a class="path path-give" href="/sostienici">
+            <strong>Voglio sostenervi</strong>
+            <span>Privati e aziende</span>
+            <i>Dona →</i>
+          </a>
+        </div>
+        <p class="hero-call">Parla subito con noi: <a href={org.phoneHref}>{org.phone}</a></p>
+      </div>
+      <div class="collage collage-one">
+        <p class="badge"><b>{new Date().getFullYear() - org.founded} anni</b> accanto a chi<br />vuole rialzarsi</p>
+        <img src="/img/vita-in-comunita-lautari-02.webp" alt="I ragazzi della comunità tutti insieme su un campo sportivo" fetchpriority="high" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Come funziona</p>
+        <h2>Dal primo colloquio <em>a una vita autonoma</em></h2>
+        <p class="lead">Ogni percorso è personalizzato e seguito da un’équipe di psicologi, psichiatra, medico, educatori e assistente sociale. Per te e per la tua famiglia non ci sono costi.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Pre-accoglienza</h3><p>Colloqui conoscitivi, anche su invio di SERT, SMI, NOA o associazioni.</p></li>
+        <li><h3>Accoglienza</h3><p>Il primo periodo: ritmi, regole e piccoli lavori per riscoprire la responsabilità.</p></li>
+        <li><h3>Comunità residenziale</h3><p>Lavoro, gruppo e colloqui individuali, in contatto costante con i servizi.</p></li>
+        <li><h3>Reinserimento</h3><p>Ritorno nella società, con la possibilità di lavorare nelle nostre cooperative.</p></li>
+      </ol>
+      <p style="margin-top:2.5rem"><a class="btn btn-accent" href={org.phoneHref}>Chiama {org.phone}</a> <a class="btn btn-ghost" href="/percorso">Scopri il percorso</a></p>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Storie</p>
+        <h2>Chi ce l’ha fatta <em>te lo racconta</em></h2>
+        <p class="lead">Da dove sono partiti, come hanno vissuto la comunità, dove sono oggi.</p>
+      </div>
+      <div class="stories">{storie.slice(0, 3).map((s) => <Story s={s} />)}</div>
+      <p style="margin-top:2.5rem"><a class="btn btn-primary" href="/storie">Tutte le storie e i video</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Sostienici</p>
+        <h2>Aiutaci ad accogliere <em>una persona in più</em></h2>
+      </div>
+      <div class="grid g2">
+        <div class="card"><div class="card-body">
+          <h3 class="card-title">Se sei un privato</h3>
+          <p>Con 40 € sostieni la giornata di un ragazzo in comunità. Le donazioni sono deducibili, e il 5×1000 non ti costa nulla.</p>
+          <p class="card-actions"><a class="btn btn-accent" href="/sostienici">Dona ora</a> <a class="btn btn-ghost" href="/sostienici#cinque-per-mille">5×1000</a></p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <h3 class="card-title">Se hai un’azienda</h3>
+          <p>Alimenti, materiali, attrezzi, competenze e offerte di lavoro per chi finisce il percorso: anche i beni e i servizi fanno la differenza.</p>
+          <p class="card-actions"><a class="btn btn-primary" href="/sostienici#aziende">Dona beni e servizi</a></p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+</Base>

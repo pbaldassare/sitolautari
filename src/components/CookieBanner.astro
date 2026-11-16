@@ -1,0 +1,34 @@
+<section class="cookie" id="cookie-banner" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-text" hidden>
+  <button type="button" class="cookie-x" data-choice="necessary" aria-label="Chiudi e continua senza accettare">×</button>
+  <h2 id="cookie-title">Rispettiamo la tua privacy</h2>
+  <p id="cookie-text">Usiamo solo un cookie tecnico per ricordare la tua scelta. Con il tuo consenso carichiamo anche i video di YouTube, che possono installare cookie di terze parti. Puoi cambiare idea quando vuoi da “Preferenze cookie” in fondo alla pagina. <a href="/privacy#cookie">Cookie policy</a></p>
+  <details class="cookie-prefs">
+    <summary>Personalizza</summary>
+    <label><input type="checkbox" checked disabled /> <span><b>Necessari</b> – sempre attivi: ricordano la tua scelta sui cookie.</span></label>
+    <label><input type="checkbox" id="cookie-media" /> <span><b>Contenuti multimediali</b> – video YouTube (Google Ireland Ltd).</span></label>
+    <button type="button" class="btn btn-ghost btn-sm" data-choice="custom">Salva le preferenze</button>
+  </details>
+  <div class="cookie-actions">
+    <button type="button" class="btn btn-ghost" data-choice="necessary">Solo necessari</button>
+    <button type="button" class="btn btn-primary" data-choice="all">Accetta tutti</button>
+  </div>
+</section>
+
+<script>
+  import { getConsent, setConsent } from '../lib/consent';
+
+  const box = document.getElementById('cookie-banner')!;
+  const media = document.getElementById('cookie-media') as HTMLInputElement;
+  const open = () => { media.checked = getConsent()?.media ?? false; box.hidden = false; };
+
+  if (!getConsent()) box.hidden = false;
+
+  box.querySelectorAll<HTMLButtonElement>('[data-choice]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const c = b.dataset.choice;
+      setConsent({ media: c === 'all' || (c === 'custom' && media.checked) });
+      box.hidden = true;
+    })
+  );
+  document.querySelectorAll('[data-cookie-prefs]').forEach((b) => b.addEventListener('click', open));
+</script>

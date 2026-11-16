@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { org, sedi, tel, mapsUrl } from '../data/site';
+
+// Dati strutturati per le schede locali di Google (una per sede)
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': sedi.map((s) => ({
+    '@type': ['NGO', 'LocalBusiness'],
+    '@id': `https://www.lautari.it/sedi#${s.id}`,
+    name: `Comunità Lautari – ${s.label}`,
+    image: new URL(s.img, 'https://www.lautari.it').href,
+    telephone: s.phone,
+    faxNumber: s.fax,
+    email: s.email,
+    parentOrganization: { '@type': 'NGO', name: org.legalName },
+    address: { '@type': 'PostalAddress', streetAddress: s.street, postalCode: s.postalCode, addressLocality: s.locality, addressRegion: s.region, addressCountry: 'IT' },
+  })),
+};
+---
+<Base title="Sedi e contatti – Comunità di recupero a Brescia, Como, Firenze, Pordenone e Roma | Lautari" description="Le sedi della Comunità Lautari: sede centrale a Pozzolengo (Brescia) e unità locali a Como, Firenze, Pordenone e Roma. Indirizzi, telefoni ed email." jsonLd={jsonLd}>
+  <PageHero eyebrow="Sedi e contatti" title="Vicini a te, <em>in cinque città</em>" img="/img/sede-lautari-brescia-02.webp" alt="Veduta aerea della sede centrale di Pozzolengo">
+    <p>La sede centrale di Pozzolengo (BS) ospita il percorso terapeutico e le attività lavorative. Nelle unità locali offriamo colloqui di ascolto e orientamento a persone e famiglie, campagne di prevenzione con scuole, parrocchie ed enti, e alloggio a chi è in fase di reinserimento lavorativo o di studio.</p>
+  </PageHero>
+
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap grid" style="gap:1.5rem">
+      {sedi.map((s) => (
+        <article class="card sede" id={s.id}>
+          <img src={s.img} alt={`La sede di ${s.city}`} loading="lazy" />
+          <div class="card-body">
+            <span class="tag">{s.label}</span>
+            <h2 style="font-size:1.8rem">{s.city} ({s.region})</h2>
+            <p style="color:var(--ink)">{s.street}<br />{s.postalCode} {s.locality} ({s.region})</p>
+            <p>Tel. <a href={tel(s.phone)}><strong>{s.phone}</strong></a> · Fax {s.fax}<br /><a href={`mailto:${s.email}`}>{s.email}</a></p>
+            {s.id === 'brescia' && <p>Uffici amministrativi: <a href="tel:+390309916044">+39 030 9916044</a> · Fax +39 030 918340 · <a href="mailto:segreteria@lautari.it">segreteria@lautari.it</a></p>}
+            <div class="sede-actions">
+              <a class="btn btn-primary btn-sm" href={tel(s.phone)}>Chiama</a>
+              <a class="btn btn-ghost btn-sm" href={mapsUrl(s)} rel="noopener">Indicazioni stradali</a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>
+

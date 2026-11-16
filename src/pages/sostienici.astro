@@ -1,0 +1,245 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { org } from '../data/site';
+
+const amounts = [
+  { v: 20, d: 'mezza giornata di un ragazzo in comunità' },
+  { v: 40, d: 'una giornata intera di un ragazzo in comunità' },
+  { v: 100, d: 'due giornate e mezza di percorso' },
+];
+
+// ponytail: lista indicativa, da confermare con la comunità.
+const aziende = [
+  ['Alimenti', 'Prodotti a lunga conservazione, frutta, verdura e forniture per la cucina della comunità.'],
+  ['Igiene e pulizia', 'Detersivi, prodotti per l’igiene personale, biancheria per camere e lavanderia.'],
+  ['Abbigliamento da lavoro', 'Scarpe antinfortunistiche, tute, guanti e dispositivi di protezione.'],
+  ['Attrezzi e materiali', 'Utensili e materiali per officina, falegnameria, vigneto e cantiere.'],
+  ['Arredi e tecnologia', 'Mobili, elettrodomestici e computer, anche usati purché funzionanti.'],
+  ['Competenze e lavoro', 'Ore di formazione, consulenze professionali e offerte di lavoro per chi conclude il percorso.'],
+];
+---
+<Base title="Sostienici – Dona alla Comunità Lautari" description="Con 40 € sostieni la giornata di un ragazzo in comunità. Dona con carta, PayPal, bonifico o bollettino postale, o scegli il 5×1000 con il codice fiscale 01702160985. Donazioni deducibili.">
+  <PageHero eyebrow="Sostienici" title="Non devi aiutarli tutti. <em>Ne basta uno.</em>" img="/img/dona-ora-aiuta-la-comunita-lautari.webp" alt="Un ragazzo della comunità al lavoro nei campi">
+    <p>La comunità è gratuita per chi la frequenta: esiste grazie al lavoro dei ragazzi e a persone come te. <strong>Con 40 € sostieni la giornata di un ragazzo in comunità.</strong></p>
+  </PageHero>
+
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap split" style="align-items:start">
+      <form class="donate" id="dona" data-paypal={org.paypal} data-client-id={org.paypalClientId}>
+        <h2 style="font-size:1.6rem">Fai una donazione</h2>
+        <div class="seg" role="radiogroup" aria-label="Frequenza">
+          <label><input type="radio" name="freq" value="once" checked /> Una volta</label>
+          <label><input type="radio" name="freq" value="monthly" /> Ogni mese</label>
+        </div>
+        <div class="amounts" role="radiogroup" aria-label="Importo">
+          {amounts.map((a) => (
+            <label><input type="radio" name="amount" value={a.v} checked={a.v === 40} /><b>{a.v} €</b><span>{a.d}</span></label>
+          ))}
+        </div>
+        <label class="amount-other"><span>Altro importo</span><input type="number" name="other" min="1" step="1" inputmode="numeric" placeholder="€" /></label>
+
+        <p class="pay-label">Come vuoi donare?</p>
+        <div class="pay-tabs" role="radiogroup" aria-label="Metodo di pagamento">
+          <label><input type="radio" name="method" value="card" checked /> <span>💳 Carta</span></label>
+          <label><input type="radio" name="method" value="paypal" /> <span>🅿️ PayPal</span></label>
+          <label><input type="radio" name="method" value="bank" /> <span>🏦 Bonifico</span></label>
+        </div>
+
+        <div class="pay pay-card">
+          <p class="sr-only">Carte accettate:</p><ul class="brands"><li>Visa</li><li>Mastercard</li><li>American Express</li><li>Maestro</li></ul>
+          <p class="pay-hint" data-once>Premi il pulsante e inserisci i dati della carta (numero, scadenza, codice di sicurezza) nel modulo sicuro di PayPal, che si apre qui sotto o in una finestra a parte.</p>
+          <div class="pp-slot" id="pp-card" data-once>{!org.paypalClientId && <button type="button" class="btn btn-primary btn-lg" disabled>Pagamento con carta in attivazione</button>}</div>
+          <div data-monthly>{org.paypal
+            ? <button type="submit" class="btn btn-primary btn-lg">Dona <span class="dona-sum">40 €</span> con carta</button>
+            : <button type="button" class="btn btn-primary btn-lg" disabled>Donazione mensile con carta in attivazione</button>}</div>
+          <p class="muted">🔒 Carta di credito, di debito o prepagata, <strong>senza bisogno di un account</strong>. I dati vengono inseriti nel modulo sicuro di PayPal e non arrivano mai a noi.</p>
+        </div>
+
+        <div class="pay pay-paypal">
+          <p class="pay-hint" data-once>Premi il pulsante: si apre la finestra sicura di PayPal dove accedi al tuo conto e confermi la donazione.</p>
+          <div class="pp-slot" id="pp-paypal" data-once>{!org.paypalClientId && <button type="button" class="btn btn-paypal btn-lg" disabled>Pagamento con PayPal in attivazione</button>}</div>
+          <div data-monthly>{org.paypal
+            ? <button type="submit" class="btn btn-paypal btn-lg">Dona <span class="dona-sum">40 €</span> con PayPal</button>
+            : <button type="button" class="btn btn-paypal btn-lg" disabled>Donazione mensile con PayPal in attivazione</button>}</div>
+          <p class="muted">Email e password si inseriscono solo su paypal.com, mai su questo sito.</p>
+        </div>
+
+        <p class="pay-note muted">Scegliendo “Ogni mese” la donazione si rinnova da sola e puoi annullarla quando vuoi; per le donazioni mensili PayPal chiede di accedere o creare un account gratuito. Riceverai la conferma via email: conservala per le agevolazioni fiscali.</p>
+        <p class="pay-error" role="alert" hidden>Il pagamento non è andato a buon fine e non ti è stato addebitato nulla. Riprova o scegli il bonifico.</p>
+
+        <div class="pay pay-bank" aria-live="polite">
+          <p>Fai un bonifico con questi dati:</p>
+          <div class="copy-row"><div><small>IBAN</small><code>{org.iban}</code></div><button type="button" class="btn btn-ghost btn-sm" data-copy={org.iban}>Copia</button></div>
+          <div class="copy-row"><div><small>Intestato a</small><code>{org.legalName}</code></div><button type="button" class="btn btn-ghost btn-sm" data-copy={org.legalName}>Copia</button></div>
+          <div class="copy-row"><div><small>Causale</small><code>Donazione liberale – Comunità Lautari</code></div><button type="button" class="btn btn-ghost btn-sm" data-copy="Donazione liberale – Comunità Lautari">Copia</button></div>
+          <div class="copy-row"><div><small>Oppure conto corrente postale</small><code>{org.ccp}</code></div><button type="button" class="btn btn-ghost btn-sm" data-copy={org.ccp}>Copia</button></div>
+          <p class="muted" style="margin:1rem 0 0;font-size:.92rem">Per ricevere la ricevuta indica nella causale nome, cognome e codice fiscale. Per donare ogni mese, imposta un bonifico periodico dalla tua banca.</p>
+        </div>
+      </form>
+      <div class="donate donate-thanks" id="grazie" hidden tabindex="-1">
+        <p class="big-thanks">♥</p>
+        <h2 style="font-size:1.8rem">Grazie <em>di cuore.</em></h2>
+        <p>La tua donazione di <strong id="grazie-sum"></strong> è arrivata. Riceverai la conferma da PayPal via email: conservala per le agevolazioni fiscali.</p>
+        <p class="muted" style="margin:0">Con il tuo aiuto un ragazzo può continuare il suo percorso.</p>
+      </div>
+
+      <div>
+        <h2>Le donazioni sono deducibili</h2>
+        <div class="acc">
+          <details open>
+            <summary>Se sei un privato</summary>
+            <div class="acc-body">
+              <p>Puoi <strong>dedurre</strong> la donazione, in denaro o in natura, fino al 10% del reddito complessivo dichiarato e fino a 70.000 € l’anno (art. 14, c. 1, D.L. 35/05, convertito nella L. 80/2005).</p>
+              <p style="margin:0">In alternativa puoi <strong>detrarre</strong> dall’imposta lorda il 19% della donazione, fino a un massimo di 2.065,83 € (art. 15, c. 1, lett. i-bis, D.P.R. 917/86).</p>
+            </div>
+          </details>
+          <details>
+            <summary>Se sei un’impresa</summary>
+            <div class="acc-body">
+              <p>Puoi <strong>dedurre</strong> la donazione, in denaro o in natura, fino al 10% del reddito d’impresa dichiarato e fino a 70.000 € l’anno (art. 14, c. 1, D.L. 35/05, convertito nella L. 80/2005).</p>
+              <p style="margin:0">In alternativa puoi dedurla per un importo non superiore a 2.065,83 € o al 2% del reddito d’impresa dichiarato (art. 100, c. 2, lett. h, D.P.R. 917/86).</p>
+            </div>
+          </details>
+          <details>
+            <summary>Cosa conservare</summary>
+            <div class="acc-body">Conserva la ricevuta del bollettino postale, la contabile bancaria o l’estratto conto. Le donazioni in contanti non danno diritto alle agevolazioni fiscali.</div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" id="aziende">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Per le aziende</p>
+        <h2>Non solo soldi: <em>dona beni, servizi e lavoro</em></h2>
+        <p class="lead">Ogni giorno la comunità mangia, lavora, si veste e impara un mestiere. Un’azienda può aiutarci con quello che produce o che sa fare, e dare un futuro a chi finisce il percorso.</p>
+      </div>
+      <div class="grid g3">
+        {aziende.map(([t, d]) => <div class="card"><div class="card-body"><h3 class="card-title">{t}</h3><p>{d}</p></div></div>)}
+      </div>
+      <div class="callout" style="margin-top:3rem">
+        <div>
+          <h2>Hai un’azienda e vuoi <em>darci una mano?</em></h2>
+          <p class="lead">Scrivici cosa puoi offrire: ti rispondiamo con quello che serve davvero in quel momento. Per le ricevute delle donazioni in natura ti indichiamo noi la procedura.</p>
+        </div>
+        <div class="callout-actions">
+          <a class="btn btn-accent" href={`mailto:${org.email}?subject=${encodeURIComponent('Donazione da azienda')}`}>Scrivici</a>
+          <a class="btn btn-ghost" href={org.phoneHref}>Chiama {org.phone}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="cinque-per-mille">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">5×1000</p>
+        <h2>Dona il tuo 5×1000. Non ti costa nulla.</h2>
+        <ol class="steps" style="grid-template-columns:1fr;margin-top:1.5rem">
+          <li><p>Nella dichiarazione dei redditi (730, Modello Redditi o CU) trova il riquadro <strong>“Scelta per la destinazione del cinque per mille dell’IRPEF”</strong>.</p></li>
+          <li><p>Firma nella casella dedicata al <strong>sostegno degli enti del Terzo Settore</strong> (volontariato e organizzazioni non lucrative).</p></li>
+          <li><p>Scrivi il nostro codice fiscale: <strong>{org.cf}</strong>.</p></li>
+        </ol>
+      </div>
+      <div class="center">
+        <p class="eyebrow">Il nostro codice fiscale</p>
+        <p class="big-cf">{org.cf}</p>
+        <button type="button" class="btn btn-accent" data-copy={org.cf}>Copia il codice fiscale</button>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('dona') as HTMLFormElement;
+  const other = form.elements.namedItem('other') as HTMLInputElement;
+  const sums = document.querySelectorAll('.dona-sum');
+
+  const amount = () => {
+    const d = new FormData(form);
+    return Math.round(Number(other.value) || Number(d.get('amount')) || 0);
+  };
+  const refresh = () => sums.forEach((el) => (el.textContent = `${amount()} €${new FormData(form).get('freq') === 'monthly' ? ' al mese' : ''}`));
+
+  // Scrivere un importo libero deseleziona i tagli fissi, e viceversa
+  other.addEventListener('input', () => form.querySelectorAll<HTMLInputElement>('[name=amount]').forEach((r) => (r.checked = false)));
+  form.querySelectorAll('[name=amount]').forEach((r) => r.addEventListener('change', () => (other.value = '')));
+  form.addEventListener('input', refresh);
+  form.addEventListener('change', refresh);
+
+  const data = () => new FormData(form);
+  const once = () => data().get('freq') === 'once';
+  const method = () => data().get('method') as 'card' | 'paypal' | 'bank';
+
+  // Donazioni singole: pulsanti ufficiali PayPal dentro la pagina. Il tasto "Carta" apre qui il modulo
+  // sicuro di PayPal (numero, scadenza, CVV): i dati non passano dal nostro sito. Lo script PayPal si carica
+  // solo quando il donatore sceglie Carta o PayPal.
+  const clientId = form.dataset.clientId;
+  let sdk: Promise<any> | undefined;
+  const loadSdk = () =>
+    (sdk ??= new Promise((ok, ko) => {
+      const s = document.createElement('script');
+      s.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=EUR&locale=it_IT&components=buttons&enable-funding=card&disable-funding=paylater,sepa,mybank`;
+      s.onload = () => ok((window as any).paypal);
+      s.onerror = ko;
+      document.head.append(s);
+    }));
+
+  const errorBox = form.querySelector<HTMLElement>('.pay-error')!;
+  const thanks = () => {
+    document.getElementById('grazie-sum')!.textContent = `${amount()} €`;
+    form.hidden = true;
+    const g = document.getElementById('grazie')!;
+    g.hidden = false;
+    g.focus();
+  };
+
+  const renderButtons = async () => {
+    const m = method();
+    if (!clientId || !once() || m === 'bank') return;
+    const el = document.getElementById(m === 'card' ? 'pp-card' : 'pp-paypal')!;
+    if (el.dataset.ready) return;
+    el.dataset.ready = '1';
+    try {
+      const paypal = await loadSdk();
+      await paypal.Buttons({
+        fundingSource: m === 'card' ? paypal.FUNDING.CARD : paypal.FUNDING.PAYPAL,
+        style: { shape: 'pill', height: 48, ...(m === 'paypal' && { label: 'donate' }) },
+        onClick: (_: unknown, actions: any) => {
+          errorBox.hidden = true;
+          if (amount() < 1) { other.focus(); return actions.reject(); }
+          return actions.resolve();
+        },
+        createOrder: (_: unknown, actions: any) =>
+          actions.order.create({
+            intent: 'CAPTURE',
+            purchase_units: [{ description: 'Donazione liberale – Comunità Lautari', amount: { currency_code: 'EUR', value: String(amount()) } }],
+            application_context: { brand_name: 'Comunità Lautari', shipping_preference: 'NO_SHIPPING' },
+          }),
+        onApprove: (_: unknown, actions: any) => actions.order.capture().then(thanks),
+        onError: () => (errorBox.hidden = false),
+      }).render(el);
+    } catch {
+      el.dataset.ready = '';
+      errorBox.hidden = false;
+    }
+  };
+  form.addEventListener('change', renderButtons);
+  renderButtons();
+
+  // Donazioni mensili: abbonamento su paypal.com (i pulsanti integrati richiederebbero un piano per ogni importo)
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const a = amount();
+    if (once() || method() === 'bank' || !form.dataset.paypal) return;
+    if (a < 1) return other.focus();
+    const p = new URLSearchParams({
+      cmd: '_xclick-subscriptions', business: form.dataset.paypal, currency_code: 'EUR', lc: 'IT',
+      item_name: 'Donazione mensile Comunità Lautari', a3: String(a), p3: '1', t3: 'M', src: '1',
+    });
+    location.href = 'https://www.paypal.com/cgi-bin/webscr?' + p;
+  });
+</script>

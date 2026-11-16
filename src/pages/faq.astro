@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { org } from '../data/site';
+import { faqGroups, faqJsonLd } from '../data/faq';
+
+---
+<Base title="Domande frequenti – Comunità Lautari" description="Costi, durata del percorso, accesso, famiglie, donazioni e 5×1000: le risposte alle domande più comuni sulla Comunità Lautari." jsonLd={faqJsonLd(faqGroups.flatMap((g) => g.items))}>
+  <PageHero eyebrow="Domande frequenti" title="Le tue domande, <em>le nostre risposte</em>" img="/img/il-percorso-in-comunita-02.webp" alt="La sede della comunità a Pozzolengo">
+    <p>Tutto quello che chiedono più spesso le persone che vogliono entrare in comunità, le loro famiglie e chi vuole sostenerci.</p>
+    <nav class="faq-nav" aria-label="Temi">
+      {faqGroups.map((g) => <a href={`#${g.id}`}>{g.title}</a>)}
+    </nav>
+  </PageHero>
+
+  {faqGroups.map((g, i) => (
+    <section class:list={['section', { 'section-soft': i % 2 }]} id={g.id}>
+      <div class="wrap" style="max-width:860px">
+        <h2>{g.title}</h2>
+        <div class="acc">
+          {g.items.map((f) => <details><summary>{f.q}</summary><div class="acc-body">{f.a}</div></details>)}
+        </div>
+        <p style="margin-top:1.5rem"><a class="btn btn-ghost btn-sm" href={g.link[0]}>{g.link[1]} →</a></p>
+      </div>
+    </section>
+  ))}
+
+  <section class="section">
+    <div class="wrap" style="max-width:860px">
+      <p class="muted">Non trovi la risposta? Chiamaci al <a href={org.phoneHref}><strong>{org.phone}</strong></a>, scrivi a <a href={`mailto:${org.email}`}>{org.email}</a> oppure <a href="/doc/brochure-informativa-lautari.pdf">scarica la brochure informativa</a>.</p>
+    </div>
+  </section>
+</Base>

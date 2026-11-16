@@ -1,0 +1,17 @@
+---
+import { esempio, storie } from '../data/storie';
+
+interface Props { s: (typeof storie)[number] }
+const { s } = Astro.props;
+---
+<article class="story">
+  <img src={s.img} alt="" loading="lazy" />
+  <div class="story-body">
+    {esempio && <span class="tag">Testimonianza di esempio</span>}
+    <blockquote>{s.frase}</blockquote>
+    <p class="story-who"><b>{s.nome}</b>, {s.eta} anni · {s.sede}</p>
+    <ol class="story-path">
+      {s.tappe.map(([t, d]) => <li><b>{t}</b>{d}</li>)}
+    </ol>
+  </div>
+</article>

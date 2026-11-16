@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { org } from '../data/site';
+---
+<Base title="Chi siamo – Comunità Lautari" description="Dal 1992 la Comunità Lautari, riconosciuta da Regione Lombardia, accompagna gratuitamente persone dipendenti da droghe e alcol. Team, storia, bilanci.">
+  <PageHero eyebrow="Chi siamo" title="Dal 1992, accanto a chi <em>vuole rialzarsi</em>" img="/img/chi-siamo-lautari-comunita-03.webp" alt="Il presidente Andrea Bonomelli con i collaboratori davanti alla comunità">
+    <p>Lautari è una comunità terapeutica di orientamento pedagogico-riabilitativo specializzata nella disintossicazione e riabilitazione di persone dipendenti da alcol e droghe. È riconosciuta dalla Regione Lombardia e certificata dall’ASL di Brescia.</p>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap grid g3">
+      <div class="card"><div class="card-body">
+        <h2 class="card-title">La persona al centro</h2>
+        <p>Il nostro intervento ha un’impronta umanistica: il percorso terapeutico ruota attorno alla persona, condizione necessaria per migliorarne la qualità di vita.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <h2 class="card-title">Gratuita e autonoma</h2>
+        <p>La comunità si sostiene grazie al lavoro dei ragazzi e alle donazioni: non chiede contributi né allo Stato né alle famiglie degli ospiti.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <h2 class="card-title">Una rete intorno</h2>
+        <p>Collaboriamo con servizi pubblici, associazioni del privato sociale e famiglie, perché il reinserimento sia naturale: sociale, familiare e lavorativo.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="section section-soft" id="team">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Il team</p>
+        <h2>Un’équipe di professionisti</h2>
+        <p class="lead">Psicologo, medico, psichiatra, educatori, assistente sociale, operatori di comunità e maestri del lavoro seguono ogni fase del percorso.</p>
+      </div>
+      <div class="grid g3">
+        <div class="card person">
+          <img src="/img/andrea-bonomelli.webp" alt="Andrea Bonomelli" loading="lazy" />
+          <div class="card-body"><h3>Andrea Bonomelli</h3><span class="tag">Presidente</span><p>Presidente dal febbraio 2014, ha dato alla comunità una prospettiva giovane e innovativa. Tra i suoi progetti, la nuova sede ecosostenibile di Via Monte Ingrana, inaugurata a fine 2015.</p></div>
+        </div>
+        <div class="card person">
+          <img src="/img/marta-gurrieri.webp" alt="Marta Gurrieri" loading="lazy" />
+          <div class="card-body"><h3>Marta Gurrieri</h3><span class="tag">Psicoterapeuta, responsabile terapeutico</span></div>
+        </div>
+        <div class="card person">
+          <img src="/img/alberto-caputo.webp" alt="Alberto Caputo" loading="lazy" />
+          <div class="card-body"><h3>Alberto Caputo</h3><span class="tag">Educatore</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <img src="/img/sede-brescia-lautari-comunita.webp" alt="La nuova struttura di accoglienza a Pozzolengo" loading="lazy" />
+      <div>
+        <p class="eyebrow">La nuova struttura</p>
+        <h2>Una casa costruita grazie ai sostenitori</h2>
+        <p>Per accogliere sempre più persone abbiamo realizzato a Pozzolengo una nuova struttura, innovativa nell’architettura e nei servizi per gli ospiti. È stata possibile grazie al contributo generoso di tutti i nostri sostenitori.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" id="trasparenza">
+    <div class="wrap split" style="align-items:start">
+      <div>
+        <p class="eyebrow">Trasparenza</p>
+        <h2>Riconoscimenti e documenti</h2>
+        <ul class="checks">
+          <li>Autorizzata al funzionamento dalla Regione Lombardia con deliberazione n. 44766 del 09/12/1993</li>
+          <li>{org.legalName}, costituita nel novembre 1992, sede a Pozzolengo (BS)</li>
+          <li>Registro Imprese di Brescia, CF {org.cf}, {org.rea}</li>
+          <li>{org.albo}</li>
+          <li>Albo Regionale Cooperative Sociali Lombardia, sezione A, foglio 29, n. d’ordine 58 (L.R. 16/1993, decreto n. 52821 del 15/02/1994)</li>
+          <li>Donazioni deducibili ai sensi dell’art. 14 della legge 80/2005</li>
+        </ul>
+      </div>
+      <div class="docs">
+        <a href="/doc/BILANCIO-SOCIALE-COOP-LAUTARI-2022.pdf">Bilancio sociale 2022</a>
+        <a href="/doc/BILANCIO-E-NOTA-INTEGRATIVA-2022-COOP-LAUTARI.pdf">Bilancio e nota integrativa 2022</a>
+        <a href="/doc/brochure-informativa-lautari.pdf">Brochure informativa</a>
+        <a href="/doc/La-famiglia-viva.pdf">Libretto “Droga e famiglia”</a>
+      </div>
+    </div>
+  </section>
+</Base>

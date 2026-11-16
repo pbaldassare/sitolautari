@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Story from '../components/Story.astro';
+import Video from '../components/Video.astro';
+import { org } from '../data/site';
+import { esempio, storie } from '../data/storie';
+---
+<Base title="Storie e testimonianze – Comunità Lautari" description="Le storie di chi ha fatto il percorso in comunità e delle loro famiglie: da dove sono partiti, come hanno vissuto la comunità, dove sono oggi.">
+  <PageHero eyebrow="Storie" title="Chi ce l’ha fatta <em>te lo racconta</em>" img="/img/vita-in-comunita-lautari-02.webp" alt="I ragazzi della comunità tutti insieme su un campo sportivo">
+    <p>Persone che sono entrate in comunità, e famiglie che le hanno accompagnate. Ogni storia è un percorso diverso, con lo stesso inizio: una telefonata.</p>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap split">
+      <Video id="9haHj1aV7HM" poster="/img/terra-mani.webp" title="La nostra video testimonianza" />
+      <div>
+        <p class="eyebrow">Video</p>
+        <h2>Ascolta dalla voce <em>di chi l’ha vissuto</em></h2>
+        <p class="lead">Cosa significa fare un percorso in comunità, raccontato dai ragazzi.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="wrap">
+      {esempio && <p class="muted" style="margin-bottom:2rem">Le storie qui sotto sono esempi provvisori: verranno sostituite con testimonianze reali, raccolte con il consenso dei protagonisti.</p>}
+      <div class="stories">{storie.map((s) => <Story s={s} />)}</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="callout">
+        <div>
+          <h2>La prossima storia <em>può essere la tua.</em></h2>
+          <p class="lead">Il percorso è gratuito, per te e per la tua famiglia. Il primo passo è parlarne con noi.</p>
+        </div>
+        <div class="callout-actions">
+          <a class="btn btn-accent btn-lg" href={org.phoneHref}>Chiama {org.phone}</a>
+          <a class="btn btn-ghost btn-lg" href="/chiedi-aiuto">Come entrare</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

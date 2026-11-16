@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { org } from '../data/site';
+---
+<Base title="Progetti di prevenzione e accoglienza – Comunità Lautari" description="Drug Zero nelle scuole, Grest negli oratori, prevenzione sul territorio e accoglienza Salvagente: i progetti della Comunità Lautari.">
+  <PageHero eyebrow="Progetti" title="Prevenire è il primo <em>modo di aiutare</em>" img="/img/formazione-e-prevenzione-lautari.webp" alt="Un banchetto informativo della comunità in piazza">
+    <p>Le dipendenze iniziano sempre più presto. Per questo portiamo la nostra esperienza in scuole, oratori e piazze: operatori e ragazzi in percorso raccontano storie vere, che arrivano dove le spiegazioni non bastano.</p>
+  </PageHero>
+
+  <section class="section" id="drug-zero">
+    <div class="wrap split">
+      <img src="/img/lautari-progetto-drug-zero-per-scuole-01.webp" alt="" loading="lazy" />
+      <div>
+        <p class="eyebrow">Per le scuole</p>
+        <h2>Drug Zero</h2>
+        <p>Incontri di prevenzione e informazione per gli istituti scolastici, guidati dagli operatori dell’équipe insieme agli utenti in percorso. Obiettivi: <strong>prevenire l’uso di sostanze e informare sulle conseguenze.</strong></p>
+        <div class="grid g2">
+          <div class="donate">
+            <h3>Noi da voi</h3>
+            <p class="muted">La comunità a scuola, in parrocchia o in associazione: presentazione, testimonianze, dibattito e attività di gruppo.</p>
+            <p style="margin:0"><strong>Circa 2 ore</strong> · donazione libera + rimborso viaggio</p>
+          </div>
+          <div class="donate">
+            <h3>Voi da noi</h3>
+            <p class="muted">La scuola in comunità a Pozzolengo: colazione alle 10, pranzo con gli utenti, lavori in piccoli gruppi, merenda e saluti alle 16:30.</p>
+            <p style="margin:0"><strong>10 € a persona</strong>, pasti inclusi</p>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:1rem">Progetto realizzato con i docenti Renata Varchetta (Scienze Umane), Dante Pattini (Italiano e Storia) e Angelo Redalli (Religione).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" id="grest">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Per oratori e centri estivi</p>
+        <h2>Grest</h2>
+        <p>Incontri per i ragazzi dei centri parrocchiali (dalle elementari in su), gli animatori e i genitori. Spieghiamo le conseguenze di ogni tipo di dipendenza, gli aiuti a cui rivolgersi e come prevenire l’uso di sostanze.</p>
+        <h3>Noi da voi</h3>
+        <p class="muted">Circa 2 ore con un gruppo di 20–30 ragazzi, un operatore e tre utenti: un brano musicale, un cartellone “per me la dipendenza è…”, le testimonianze, il dibattito, un filmato e materiale informativo. Contributo libero più rimborso del viaggio.</p>
+        <h3>Voi da noi</h3>
+        <p class="muted">Una giornata a Pozzolengo: accoglienza e colazione, visita della struttura e dei settori di lavoro, pranzo, lavori di gruppo da 10–15 persone con tre utenti che raccontano la loro storia. <strong>10 € a persona</strong>, con colazione, pranzo, merenda e materiale.</p>
+      </div>
+      <img src="/img/lautari-progetto-grest.webp" alt="" loading="lazy" />
+    </div>
+  </section>
+
+  <section class="section" id="prevenzione">
+    <div class="wrap split">
+      <img src="/img/progetto-prevenzione-lautari.webp" alt="" loading="lazy" />
+      <div>
+        <p class="eyebrow">Sul territorio</p>
+        <h2>Prevenzione e informazione</h2>
+        <p>È uno dei punti di forza della comunità. Operatori e ragazzi raccontano in parrocchie, scuole e centri giovanili il cambiamento vissuto grazie al percorso, offrendo aiuto a chi lo cerca.</p>
+        <ul class="checks">
+          <li><strong>Ricostruisce le relazioni</strong>, indispensabili per tornare a vivere e lavorare nella società</li>
+          <li><strong>Raccoglie fondi</strong> grazie alla solidarietà di chi crede nel progetto</li>
+          <li><strong>Accompagna il reinserimento</strong>: i ragazzi tornano, guidati, nei contesti che prima li avevano influenzati negativamente</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" id="salvagente">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Accoglienza</p>
+        <h2>Salvagente</h2>
+        <p>Accoglienza residenziale per uomini e donne in grave svantaggio sociale che non riescono più a vivere in autonomia: disoccupati di lungo periodo, adulti soli con figli a carico, lavoratori over 40 rimasti senza lavoro, persone senza casa, donne vittime di maltrattamenti o abusi.</p>
+        <ul class="checks">
+          <li>Accoglienza residenziale e integrazione nelle attività della comunità</li>
+          <li>Prevenzione della cronicizzazione dei disturbi dell’umore</li>
+          <li>Reinserimento sociale</li>
+        </ul>
+        <p class="muted"><strong>Accesso:</strong> su segnalazione dei Servizi Sociali del Comune di residenza, dopo colloqui conoscitivi. <strong>Durata:</strong> 6 mesi, prorogabili di altri 6.</p>
+      </div>
+      <img src="/img/progetto-salvagente-lautari.webp" alt="" loading="lazy" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="callout">
+        <div>
+          <h2>Vuoi organizzare un incontro?</h2>
+          <p class="lead">Contatta l’assistente sociale, dott.ssa Glenda Orlandi.</p>
+        </div>
+        <div class="callout-actions">
+          <a class="btn btn-accent" href={org.phoneHref}>{org.phone}</a>
+          <a class="btn btn-ghost" href={`mailto:${org.email}`}>{org.email}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

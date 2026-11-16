@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { org } from '../data/site';
+---
+<Base title="Pagina non trovata – Comunità Lautari" description="La pagina che cerchi non esiste o è stata spostata.">
+  <section class="section">
+    <div class="wrap center" style="max-width:640px">
+      <p class="eyebrow">Errore 404</p>
+      <h1>Questa pagina <em>non c’è più.</em></h1>
+      <p class="lead center">Forse è stata spostata con il nuovo sito. Ma se stai cercando aiuto, sei nel posto giusto.</p>
+      <p style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:2rem">
+        <a class="btn btn-primary btn-lg" href="/">Torna alla home</a>
+        <a class="btn btn-ghost btn-lg" href="/chiedi-aiuto">Chiedi aiuto</a>
+      </p>
+      <p class="muted" style="margin-top:1.5rem">Oppure chiamaci: <a href={org.phoneHref}><strong>{org.phone}</strong></a></p>
+    </div>
+  </section>
+</Base>
