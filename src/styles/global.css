@@ -596,3 +596,27 @@ a[href^="tel:"] { white-space: nowrap; }
   .hero-full .hero-video { inset: 0 auto 0 0; width: 140%; object-position: center; }
   .hero-full .badge { top: 5rem; bottom: auto; }
 }
+
+/* Telefono: il video in alto ben visibile con il titolo sopra, il resto sotto e asciugato */
+@media (max-width: 900px) {
+  .hero-full { display: block; padding-block: 0 2.5rem; color: var(--ink); }
+  .hero-full .hero-video { position: relative; display: block; height: 62svh; min-height: 360px; }
+  .hero-full::before { height: 62svh; min-height: 360px; bottom: auto; background: linear-gradient(180deg, rgb(19 60 68 / 0) 35%, rgb(19 60 68 / .9) 100%); }
+  .hero-content { position: relative; margin-top: -8.5rem; }
+  .hero-full .eyebrow, .hero-full .lead { display: none; }
+  .hero-full h1 { font-size: clamp(2.4rem, 11vw, 3.2rem); margin-bottom: 2.25rem; text-shadow: 0 2px 18px rgb(0 0 0 / .35); }
+  .hero-full .paths { gap: .6rem; margin-top: 0; }
+  .hero-full .path { flex-direction: row; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; }
+  .hero-full .path span { display: none; }
+  .hero-full .path i { margin: 0; }
+  .hero-full .path-family { box-shadow: var(--ring), var(--shadow); }
+  .hero-full .hero-call { color: var(--muted); }
+  .hero-full .hero-call a { color: var(--ink); }
+}
+@media (max-width: 900px) {
+  .hero-full .hero-video, .hero-full::before { height: 56svh; }
+  .hero-full .paths { grid-template-columns: 1fr; }
+  .hero-full .path strong { font-size: 1.1rem; }
+  .hero-full .path i { font-size: 0; }
+  .hero-full .path i::after { content: '→'; font-size: 1.3rem; }
+}
