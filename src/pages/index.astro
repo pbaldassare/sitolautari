@@ -48,7 +48,9 @@ const jsonLd = {
       </div>
       <div class="collage collage-one">
         <p class="badge"><b><span data-count={new Date().getFullYear() - org.founded}>{new Date().getFullYear() - org.founded}</span> anni</b> accanto a chi<br />vuole rialzarsi</p>
-        <img src="/img/vita-in-comunita-lautari-02.webp" alt="I ragazzi della comunità tutti insieme su un campo sportivo" fetchpriority="high" />
+        <!-- Video libero da diritti (Mixkit Free License): parte solo se l'utente non ha chiesto di ridurre il movimento -->
+        <video class="hero-video" src="/video/germoglio.mp4" poster="/video/germoglio.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <button type="button" class="video-toggle" aria-label="Metti in pausa il video" hidden><span aria-hidden="true">❚❚</span></button>
       </div>
     </div>
     <a class="scroll-down" href="#come-funziona" aria-label="Scorri a: come funziona"><span aria-hidden="true">↓</span></a>
@@ -108,3 +110,17 @@ const jsonLd = {
     </div>
   </section>
 </Base>
+
+<script>
+  const v = document.querySelector<HTMLVideoElement>('.hero-video');
+  const b = document.querySelector<HTMLButtonElement>('.video-toggle');
+  const quiet = matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator as any).connection?.saveData;
+  if (v && b && !quiet) {
+    v.play().then(() => (b.hidden = false)).catch(() => {});
+    b.addEventListener('click', () => {
+      v.paused ? v.play() : v.pause();
+      b.setAttribute('aria-label', v.paused ? 'Riproduci il video' : 'Metti in pausa il video');
+      b.firstElementChild!.textContent = v.paused ? '▶' : '❚❚';
+    });
+  }
+</script>

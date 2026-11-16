@@ -127,7 +127,7 @@ p { margin: 0 0 1em; }
 .badge { position: absolute; z-index: 2; left: -1.5rem; bottom: 2rem; margin: 0; padding: 1rem 1.25rem; border-radius: 20px; background: rgb(255 255 255 / .9); backdrop-filter: blur(10px); box-shadow: var(--shadow); font-size: .85rem; line-height: 1.35; color: var(--muted); }
 .badge b { display: block; font-size: 1.8rem; color: var(--primary); line-height: 1; margin-bottom: .2rem; }
 @media (max-width: 900px) { .badge { left: .75rem; bottom: .75rem; } }
-.collage img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+.collage :is(img, video) { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
 .collage img:first-of-type { grid-row: span 2; }
 .collage-one { grid-template-columns: 1fr; grid-template-rows: 1fr; }
 .collage-one img:first-of-type { grid-row: auto; }
@@ -477,7 +477,7 @@ a[href^="tel:"] { white-space: nowrap; }
 
 /* Foto che si scoprono a sipario entrando nello schermo */
 @supports (animation-timeline: view()) {
-  .split > img, .page-hero-img, .collage img, .card > img, .story > img {
+  .split > img, .page-hero-img, .collage :is(img, video), .card > img, .story > img {
     animation: unveil linear both; animation-timeline: view(); animation-range: entry 0% entry 80%;
   }
   @keyframes unveil { from { clip-path: inset(14% 10% 14% 10%); scale: 1.12; opacity: .3; } to { clip-path: inset(0); scale: 1; opacity: 1; } }
@@ -567,3 +567,8 @@ a[href^="tel:"] { white-space: nowrap; }
   .way:is(:hover, :focus-within) .way-back { opacity: 1; }
   .scroll-down { animation: none; }
 }
+
+/* Pulsante pausa del video nell'apertura (obbligatorio per i contenuti in movimento oltre 5 s) */
+.video-toggle { position: absolute; z-index: 2; top: 1rem; right: 1rem; width: 44px; height: 44px; border: 0; border-radius: 50%; display: grid; place-items: center; background: rgb(255 255 255 / .85); backdrop-filter: blur(8px); color: var(--primary-dark); font-size: .8rem; font-weight: 800; cursor: pointer; box-shadow: var(--shadow); }
+.video-toggle:hover { background: #fff; }
+.video-toggle[hidden] { display: none; }
