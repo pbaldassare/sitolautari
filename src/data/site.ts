@@ -15,6 +15,8 @@ export const org = {
   // - paypal: email dell'account → donazioni mensili (abbonamento su paypal.com)
   paypalClientId: '',
   paypal: '',
+  // Chiave gratuita di web3forms.com (registrata con info@lautari.it). Vuota = il modulo apre il programma di posta.
+  formKey: '',
   facebook: 'https://www.facebook.com/comunita.lautari/',
   founded: 1992,
 };

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import ContactForm from '../components/ContactForm.astro';
 import Video from '../components/Video.astro';
 import { org } from '../data/site';
 import { faqGroups } from '../data/faq';
@@ -17,6 +18,17 @@ const faq = faqGroups.find((g) => g.id === 'accesso')!.items;
       <div class="contact-card"><h2 class="card-title">Chiama</h2><a href={org.phoneHref}>{org.phone}</a></div>
       <div class="contact-card"><h2 class="card-title">Scrivi una mail</h2><a href={`mailto:${org.email}`}>{org.email}</a></div>
       <div class="contact-card"><h2 class="card-title">Per posta</h2><strong style="font-size:1rem">Comunità Lautari<br />Via Monte Ingrana, 2 – 25010 Pozzolengo (BS)</strong></div>
+    </div>
+  </section>
+
+  <section class="section" id="scrivici" style="padding-bottom:0">
+    <div class="wrap split" style="align-items:start">
+      <div>
+        <p class="eyebrow">Scrivici</p>
+        <h2>Preferisci scrivere? <em>Ti richiamiamo noi.</em></h2>
+        <p class="lead">Lascia il tuo nome e un recapito: un operatore ti ricontatta, con riservatezza e senza impegno. Va bene anche se scrivi per un figlio, un partner o un amico.</p>
+      </div>
+      <ContactForm />
     </div>
   </section>
 

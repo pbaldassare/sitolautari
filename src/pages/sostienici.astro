@@ -9,6 +9,13 @@ const amounts = [
   { v: 100, d: 'due giornate e mezza di percorso' },
 ];
 
+const modi = [
+  ['01', 'Dona', 'Con carta, PayPal, bonifico o bollettino.', 'Con 40 € sostieni una giornata intera di un ragazzo in comunità. Le donazioni sono deducibili.', '#dona', 'Dona ora'],
+  ['02', '5×1000', 'Una firma nella dichiarazione dei redditi.', 'Non ti costa nulla: basta firmare e scrivere il nostro codice fiscale ' + org.cf + '.', '#cinque-per-mille', 'Come fare'],
+  ['03', 'Aziende', 'Beni, servizi, competenze e lavoro.', 'Alimenti, materiali, attrezzi, formazione e offerte di lavoro per chi finisce il percorso.', '#aziende', 'Cosa serve'],
+  ['04', 'Volontariato', 'Il tuo tempo e le tue capacità.', 'Hai un mestiere da insegnare o del tempo da dedicare? Scrivici e troviamo insieme come.', 'mailto:' + org.email + '?subject=' + encodeURIComponent('Vorrei fare volontariato'), 'Scrivici'],
+];
+
 // ponytail: lista indicativa, da confermare con la comunità.
 const aziende = [
   ['Alimenti', 'Prodotti a lunga conservazione, frutta, verdura e forniture per la cucina della comunità.'],
@@ -23,6 +30,21 @@ const aziende = [
   <PageHero eyebrow="Sostienici" title="Non devi aiutarli tutti. <em>Ne basta uno.</em>" img="/img/dona-ora-aiuta-la-comunita-lautari.webp" alt="Un ragazzo della comunità al lavoro nei campi">
     <p>La comunità è gratuita per chi la frequenta: esiste grazie al lavoro dei ragazzi e a persone come te. <strong>Con 40 € sostieni la giornata di un ragazzo in comunità.</strong></p>
   </PageHero>
+
+  <section class="section" style="padding-block:1rem 3rem" aria-label="Quattro modi per aiutarci">
+    <div class="wrap">
+      <ul class="ways">
+        {modi.map(([n, t, front, back, href, cta]) => (
+          <li class="way" tabindex="0">
+            <div class="way-in">
+              <div class="way-front"><span class="way-n">{n}</span><h2>{t}</h2><p>{front}</p><i aria-hidden="true">Scopri ↻</i></div>
+              <div class="way-back"><p>{back}</p><a class="btn btn-accent btn-sm" href={href}>{cta}</a></div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
 
   <section class="section" style="padding-top:1rem">
     <div class="wrap split" style="align-items:start">

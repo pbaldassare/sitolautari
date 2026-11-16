@@ -2,6 +2,21 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { org } from '../data/site';
+
+const riconoscimenti = [
+  ['Autorizzata', 'Regione Lombardia', 'Al funzionamento, con deliberazione n. 44766 del 09/12/1993.'],
+  ['Dal 1992', org.legalName, 'Costituita nel novembre 1992, sede a Pozzolengo (BS).'],
+  ['Registro Imprese', 'Brescia', `CF ${org.cf} · ${org.rea}.`],
+  ['Albo Nazionale', 'Società Cooperative', org.albo.replace('Albo Nazionale Società Cooperative ', '') + '.'],
+  ['Albo Regionale', 'Cooperative Sociali, sezione A', 'Lombardia, foglio 29, n. d’ordine 58 (L.R. 16/1993, decreto n. 52821 del 15/02/1994).'],
+  ['Deducibili', 'Le tue donazioni', 'Ai sensi dell’art. 14 della legge 80/2005.'],
+];
+const documenti = [
+  ['/doc/BILANCIO-SOCIALE-COOP-LAUTARI-2022.pdf', 'Bilancio sociale 2022'],
+  ['/doc/BILANCIO-E-NOTA-INTEGRATIVA-2022-COOP-LAUTARI.pdf', 'Bilancio e nota integrativa 2022'],
+  ['/doc/brochure-informativa-lautari.pdf', 'Brochure informativa'],
+  ['/doc/La-famiglia-viva.pdf', 'Libretto “Droga e famiglia”'],
+];
 ---
 <Base title="Chi siamo – Comunità Lautari" description="Dal 1992 la Comunità Lautari, riconosciuta da Regione Lombardia, accompagna gratuitamente persone dipendenti da droghe e alcol. Team, storia, bilanci.">
   <PageHero eyebrow="Chi siamo" title="Dal 1992, accanto a chi <em>vuole rialzarsi</em>" img="/img/chi-siamo-lautari-comunita-03.webp" alt="Il presidente Andrea Bonomelli con i collaboratori davanti alla comunità">
@@ -60,25 +75,18 @@ import { org } from '../data/site';
     </div>
   </section>
 
-  <section class="section section-soft" id="trasparenza">
-    <div class="wrap split" style="align-items:start">
-      <div>
+  <section class="section section-dark" id="trasparenza">
+    <div class="wrap">
+      <div class="section-head">
         <p class="eyebrow">Trasparenza</p>
-        <h2>Riconoscimenti e documenti</h2>
-        <ul class="checks">
-          <li>Autorizzata al funzionamento dalla Regione Lombardia con deliberazione n. 44766 del 09/12/1993</li>
-          <li>{org.legalName}, costituita nel novembre 1992, sede a Pozzolengo (BS)</li>
-          <li>Registro Imprese di Brescia, CF {org.cf}, {org.rea}</li>
-          <li>{org.albo}</li>
-          <li>Albo Regionale Cooperative Sociali Lombardia, sezione A, foglio 29, n. d’ordine 58 (L.R. 16/1993, decreto n. 52821 del 15/02/1994)</li>
-          <li>Donazioni deducibili ai sensi dell’art. 14 della legge 80/2005</li>
-        </ul>
+        <h2>Riconoscimenti <em>e documenti</em></h2>
+        <p class="lead">Chi ci affida una persona cara o una donazione deve poter verificare chi siamo.</p>
       </div>
-      <div class="docs">
-        <a href="/doc/BILANCIO-SOCIALE-COOP-LAUTARI-2022.pdf">Bilancio sociale 2022</a>
-        <a href="/doc/BILANCIO-E-NOTA-INTEGRATIVA-2022-COOP-LAUTARI.pdf">Bilancio e nota integrativa 2022</a>
-        <a href="/doc/brochure-informativa-lautari.pdf">Brochure informativa</a>
-        <a href="/doc/La-famiglia-viva.pdf">Libretto “Droga e famiglia”</a>
+      <div class="glass-grid">
+        {riconoscimenti.map(([t, s, d]) => <div class="glass"><h3>{t}</h3><b>{s}</b><p>{d}</p></div>)}
+      </div>
+      <div class="glass-grid glass-docs">
+        {documenti.map(([href, t]) => <a class="glass" href={href}><h3>{t}</h3><p>PDF · Scarica ↓</p></a>)}
       </div>
     </div>
   </section>

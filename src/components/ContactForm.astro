@@ -1,0 +1,74 @@
+---
+// Modulo "Scrivici". Con org.formKey (chiave Web3Forms) la richiesta arriva via email senza uscire dal sito;
+// senza chiave apre il programma di posta con il messaggio già compilato.
+import { org } from '../data/site';
+
+interface Props { motivo?: string }
+const { motivo = 'Chiedo aiuto per me' } = Astro.props;
+const motivi = ['Chiedo aiuto per me', 'Chiedo aiuto per un familiare', 'Azienda o donazione', 'Altro'];
+---
+<form class="contact-form" data-key={org.formKey} data-to={org.email} novalidate>
+  <div class="cf-grid">
+    <label class="cf-wide">Perché ci scrivi
+      <select name="motivo">{motivi.map((m) => <option selected={m === motivo}>{m}</option>)}</select>
+    </label>
+    <label><span>Nome <small>(obbligatorio)</small></span>
+      <input name="nome" autocomplete="given-name" required />
+    </label>
+    <label><span>Telefono</span>
+      <input name="telefono" type="tel" autocomplete="tel" inputmode="tel" />
+    </label>
+    <label class="cf-wide">Email
+      <input name="email" type="email" autocomplete="email" />
+    </label>
+    <label class="cf-wide">Messaggio
+      <textarea name="messaggio" rows="4"></textarea>
+    </label>
+  </div>
+  <p class="cf-hint">Bastano il nome e un recapito, telefono o email: ti richiamiamo noi. Non serve raccontare tutto qui.</p>
+  <label class="cf-check"><input type="checkbox" name="privacy" required /> <span>Ho letto l’<a href="/privacy">informativa privacy</a> e acconsento al trattamento dei dati per ricevere una risposta. <small>(obbligatorio)</small></span></label>
+  <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" aria-hidden="true" />
+  <button class="btn btn-primary btn-lg" type="submit">Invia la richiesta</button>
+  <p class="cf-status" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.contact-form').forEach((f) => {
+    const status = f.querySelector<HTMLElement>('.cf-status')!;
+    const el = (n: string) => f.elements.namedItem(n) as HTMLInputElement;
+
+    f.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      // Serve almeno un recapito
+      el('telefono').setCustomValidity(el('telefono').value.trim() || el('email').value.trim() ? '' : 'Indica un telefono o un’email per essere ricontattato.');
+      if (!f.reportValidity()) return;
+      if (el('botcheck').checked) return;
+
+      const d = Object.fromEntries(['motivo', 'nome', 'telefono', 'email', 'messaggio'].map((k) => [k, el(k).value.trim()]));
+      const subject = `Richiesta dal sito – ${d.motivo}`;
+      const body = `Motivo: ${d.motivo}\nNome: ${d.nome}\nTelefono: ${d.telefono || '-'}\nEmail: ${d.email || '-'}\n\n${d.messaggio}`;
+
+      if (!f.dataset.key) {
+        location.href = `mailto:${f.dataset.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        status.textContent = 'Si è aperto il tuo programma di posta con il messaggio pronto: premi Invia per spedirlo.';
+        return;
+      }
+      const btn = f.querySelector<HTMLButtonElement>('button[type=submit]')!;
+      btn.disabled = true;
+      status.textContent = 'Invio in corso…';
+      try {
+        const r = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ access_key: f.dataset.key, subject, from_name: d.nome, replyto: d.email || undefined, ...d }),
+        });
+        if (!(await r.json()).success) throw new Error();
+        f.innerHTML = `<p class="cf-done"><strong>Grazie ${d.nome}, abbiamo ricevuto la tua richiesta.</strong><br>Ti ricontattiamo al più presto. Se è urgente chiamaci al <a href="tel:+390309918700">030 9918700</a>.</p>`;
+      } catch {
+        btn.disabled = false;
+        status.textContent = 'Non siamo riusciti a inviare il messaggio. Riprova, oppure chiamaci al 030 9918700.';
+      }
+    });
+    f.addEventListener('input', (e) => (e.target as HTMLInputElement).setCustomValidity?.(''));
+  });
+</script>
