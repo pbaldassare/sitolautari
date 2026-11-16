@@ -120,6 +120,7 @@ export const faqGroups = [
     items: [
       { q: 'Da quanto esiste la comunità?', a: `Dal ${org.founded}: la ${org.legalName} è stata costituita nel novembre di quell’anno, con sede a Pozzolengo (BS).` },
       { q: 'La comunità è riconosciuta?', a: 'Sì. È autorizzata al funzionamento dalla Regione Lombardia (deliberazione n. 44766 del 09/12/1993), certificata dall’ASL di Brescia e iscritta all’Albo Regionale delle Cooperative Sociali.' },
+      { q: 'Posso fare volontariato?', a: 'Sì. Se hai un mestiere da insegnare, delle competenze professionali o del tempo da dedicare, scrivici dal modulo nella pagina Sedi scegliendo “Vorrei fare volontariato”: troviamo insieme come.' },
       { q: 'Perché il percorso è gratuito?', a: 'La comunità non chiede contributi né allo Stato né alle famiglie: si sostiene con il lavoro dei ragazzi e con le donazioni.' },
       { q: 'Chi guida la comunità?', a: 'Il presidente è Andrea Bonomelli, in carica dal febbraio 2014; la responsabile terapeutica è la psicoterapeuta Marta Gurrieri.' },
       { q: 'Con chi collaborate?', a: 'Con i servizi pubblici per le dipendenze, le associazioni del privato sociale e le famiglie, perché il reinserimento sia sociale, familiare e lavorativo.' },

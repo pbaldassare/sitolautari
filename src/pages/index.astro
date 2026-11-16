@@ -21,38 +21,34 @@ const jsonLd = {
 ---
 <Base title="Comunità Lautari – Comunità di recupero gratuita per dipendenze da droghe e alcol" description="Dal 1992 la Comunità Lautari accompagna gratuitamente persone dipendenti da droghe e alcol verso una nuova vita. 5 sedi in Italia. Chiama il 030 9918700." jsonLd={jsonLd}>
 
-  <section class="hero">
-    <div class="wrap hero-in">
-      <div>
-        <p class="eyebrow">Comunità terapeutica dal 1992 · Gratuita</p>
-        <h1>Droghe o alcol? <em>Puoi uscirne.</em></h1>
-        <p class="lead">Accogliamo chi vuole smettere e accompagniamo le famiglie. Il percorso è gratuito: lavoro, relazioni, autonomia, per tornare a una vita tua.</p>
-        <div class="paths">
-          <a class="path path-help" href="/chiedi-aiuto">
-            <strong>Ho bisogno di aiuto</strong>
-            <span>Per me</span>
-            <i>Come entrare →</i>
-          </a>
-          <a class="path path-family" href="/chiedi-aiuto#famiglie">
-            <strong>Sono un familiare</strong>
-            <span>Per un figlio, un partner, un amico</span>
-            <i>Come aiutarlo →</i>
-          </a>
-          <a class="path path-give" href="/sostienici">
-            <strong>Voglio sostenervi</strong>
-            <span>Privati e aziende</span>
-            <i>Dona →</i>
-          </a>
-        </div>
-        <p class="hero-call">Parla subito con noi: <a href={org.phoneHref}>{org.phone}</a></p>
+  <section class="hero hero-full">
+    <!-- Video libero da diritti (Mixkit Free License): parte solo se l'utente non ha chiesto di ridurre il movimento -->
+    <video class="hero-video" src="/video/germoglio.mp4" poster="/video/germoglio.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+    <div class="wrap hero-content">
+      <p class="eyebrow">Comunità terapeutica dal 1992 · Gratuita</p>
+      <h1>Droghe o alcol? <em>Puoi uscirne.</em></h1>
+      <p class="lead">Accogliamo chi vuole smettere e accompagniamo le famiglie. Il percorso è gratuito: lavoro, relazioni, autonomia, per tornare a una vita tua.</p>
+      <div class="paths">
+        <a class="path path-help" href="/chiedi-aiuto">
+          <strong>Ho bisogno di aiuto</strong>
+          <span>Per me</span>
+          <i>Come entrare →</i>
+        </a>
+        <a class="path path-family" href="/chiedi-aiuto#famiglie">
+          <strong>Sono un familiare</strong>
+          <span>Per un figlio, un partner, un amico</span>
+          <i>Come aiutarlo →</i>
+        </a>
+        <a class="path path-give" href="/sostienici">
+          <strong>Voglio sostenervi</strong>
+          <span>Privati e aziende</span>
+          <i>Dona →</i>
+        </a>
       </div>
-      <div class="collage collage-one">
-        <p class="badge"><b><span data-count={new Date().getFullYear() - org.founded}>{new Date().getFullYear() - org.founded}</span> anni</b> accanto a chi<br />vuole rialzarsi</p>
-        <!-- Video libero da diritti (Mixkit Free License): parte solo se l'utente non ha chiesto di ridurre il movimento -->
-        <video class="hero-video" src="/video/germoglio.mp4" poster="/video/germoglio.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
-        <button type="button" class="video-toggle" aria-label="Metti in pausa il video" hidden><span aria-hidden="true">❚❚</span></button>
-      </div>
+      <p class="hero-call">Parla subito con noi: <a href={org.phoneHref}>{org.phone}</a></p>
     </div>
+    <p class="badge"><b><span data-count={new Date().getFullYear() - org.founded}>{new Date().getFullYear() - org.founded}</span> anni</b> accanto a chi<br />vuole rialzarsi</p>
+    <button type="button" class="video-toggle" aria-label="Metti in pausa il video" hidden><span aria-hidden="true">❚❚</span></button>
     <a class="scroll-down" href="#come-funziona" aria-label="Scorri a: come funziona"><span aria-hidden="true">↓</span></a>
   </section>
 

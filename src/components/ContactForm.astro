@@ -5,7 +5,7 @@ import { org } from '../data/site';
 
 interface Props { motivo?: string }
 const { motivo = 'Chiedo aiuto per me' } = Astro.props;
-const motivi = ['Chiedo aiuto per me', 'Chiedo aiuto per un familiare', 'Azienda o donazione', 'Altro'];
+const motivi = ['Chiedo aiuto per me', 'Chiedo aiuto per un familiare', 'Azienda o donazione', 'Vorrei fare volontariato', 'Altro'];
 ---
 <form class="contact-form" data-key={org.formKey} data-to={org.email} novalidate>
   <div class="cf-grid">
@@ -36,6 +36,10 @@ const motivi = ['Chiedo aiuto per me', 'Chiedo aiuto per un familiare', 'Azienda
   document.querySelectorAll<HTMLFormElement>('.contact-form').forEach((f) => {
     const status = f.querySelector<HTMLElement>('.cf-status')!;
     const el = (n: string) => f.elements.namedItem(n) as HTMLInputElement;
+    // ?motivo=volontariato (o altra parola) preseleziona la voce corrispondente
+    const q = new URLSearchParams(location.search).get('motivo')?.toLowerCase();
+    const sel = f.elements.namedItem('motivo') as HTMLSelectElement;
+    if (q) [...sel.options].forEach((o) => o.text.toLowerCase().includes(q) && (o.selected = true));
 
     f.addEventListener('submit', async (e) => {
       e.preventDefault();
