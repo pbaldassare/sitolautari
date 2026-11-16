@@ -420,3 +420,20 @@ a[href^="tel:"] { white-space: nowrap; }
 .marquee div { display: inline-flex; animation: marquee 32s linear infinite; }
 .marquee:hover div { animation-play-state: paused; }
 @keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Transizione morbida tra le pagine (View Transitions native, senza JS):
+   la pagina nuova sale dal basso, menu in alto e barra mobile restano fermi.
+   I browser che non la supportano (Firefox, per ora) cambiano pagina normalmente. */
+@view-transition { navigation: auto; }
+.header { view-transition-name: header; }
+.mobile-bar { view-transition-name: mobile-bar; }
+.cookie { view-transition-name: cookie; }
+::view-transition-old(root) { animation: vt-out .35s cubic-bezier(.4, 0, .2, 1) both; }
+::view-transition-new(root) { animation: vt-in .45s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes vt-out { to { opacity: 0; translate: 0 -40px; } }
+@keyframes vt-in { from { opacity: 0; translate: 0 70px; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .2s !important; translate: none; }
+  @keyframes vt-out { to { opacity: 0; } }
+  @keyframes vt-in { from { opacity: 0; } }
+}
