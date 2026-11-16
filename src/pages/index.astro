@@ -47,7 +47,7 @@ const jsonLd = {
         <p class="hero-call">Parla subito con noi: <a href={org.phoneHref}>{org.phone}</a></p>
       </div>
       <div class="collage collage-one">
-        <p class="badge"><b>{new Date().getFullYear() - org.founded} anni</b> accanto a chi<br />vuole rialzarsi</p>
+        <p class="badge"><b><span data-count={new Date().getFullYear() - org.founded}>{new Date().getFullYear() - org.founded}</span> anni</b> accanto a chi<br />vuole rialzarsi</p>
         <img src="/img/vita-in-comunita-lautari-02.webp" alt="I ragazzi della comunità tutti insieme su un campo sportivo" fetchpriority="high" />
       </div>
     </div>

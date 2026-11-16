@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import SediMap from '../components/SediMap.astro';
 import { org, sedi, tel, mapsUrl } from '../data/site';
 
 // Dati strutturati per le schede locali di Google (una per sede)
@@ -24,7 +25,11 @@ const jsonLd = {
     <p>La sede centrale di Pozzolengo (BS) ospita il percorso terapeutico e le attività lavorative. Nelle unità locali offriamo colloqui di ascolto e orientamento a persone e famiglie, campagne di prevenzione con scuole, parrocchie ed enti, e alloggio a chi è in fase di reinserimento lavorativo o di studio.</p>
   </PageHero>
 
-  <section class="section" style="padding-top:1rem">
+  <section class="section" style="padding-top:1rem;padding-bottom:0">
+    <div class="wrap"><SediMap /></div>
+  </section>
+
+  <section class="section" style="padding-top:3rem">
     <div class="wrap grid" style="gap:1.5rem">
       {sedi.map((s) => (
         <article class="card sede" id={s.id}>

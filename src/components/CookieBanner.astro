@@ -1,11 +1,11 @@
 <section class="cookie" id="cookie-banner" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-text" hidden>
   <button type="button" class="cookie-x" data-choice="necessary" aria-label="Chiudi e continua senza accettare">×</button>
   <h2 id="cookie-title">Rispettiamo la tua privacy</h2>
-  <p id="cookie-text">Usiamo solo un cookie tecnico per ricordare la tua scelta. Con il tuo consenso carichiamo anche i video di YouTube, che possono installare cookie di terze parti. Puoi cambiare idea quando vuoi da “Preferenze cookie” in fondo alla pagina. <a href="/privacy#cookie">Cookie policy</a></p>
+  <p id="cookie-text">Usiamo solo un cookie tecnico per ricordare la tua scelta. Con il tuo consenso carichiamo anche i video di YouTube e la mappa di Google Maps, che possono installare cookie di terze parti. Puoi cambiare idea quando vuoi da “Preferenze cookie” in fondo alla pagina. <a href="/privacy#cookie">Cookie policy</a></p>
   <details class="cookie-prefs">
     <summary>Personalizza</summary>
     <label><input type="checkbox" checked disabled /> <span><b>Necessari</b> – sempre attivi: ricordano la tua scelta sui cookie.</span></label>
-    <label><input type="checkbox" id="cookie-media" /> <span><b>Contenuti multimediali</b> – video YouTube (Google Ireland Ltd).</span></label>
+    <label><input type="checkbox" id="cookie-media" /> <span><b>Contenuti multimediali</b> – video YouTube e mappa Google Maps (Google Ireland Ltd).</span></label>
     <button type="button" class="btn btn-ghost btn-sm" data-choice="custom">Salva le preferenze</button>
   </details>
   <div class="cookie-actions">
@@ -31,4 +31,6 @@
     })
   );
   document.querySelectorAll('[data-cookie-prefs]').forEach((b) => b.addEventListener('click', open));
+  // Consenso dato altrove (video, mappa): il banner non serve più
+  document.addEventListener('consent', () => (box.hidden = true));
 </script>

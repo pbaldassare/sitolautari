@@ -1,0 +1,95 @@
+---
+// Mappa interattiva delle sedi (Google Maps). Come i video, si carica solo con il consenso
+// "contenuti multimediali": prima di allora nessuna richiesta parte verso Google.
+import { sedi, mapsKey, tel, mapsUrl } from '../data/site';
+
+const points = sedi.map((s) => ({ id: s.id, city: s.city, region: s.region, label: s.label, street: s.street, phone: s.phone, tel: tel(s.phone), dir: mapsUrl(s), pos: s.pos }));
+---
+<div class="sedi-map" data-key={mapsKey} data-points={JSON.stringify(points)}>
+  <div class="map-canvas" role="region" aria-label="Mappa delle sedi"></div>
+  <div class="map-consent">
+    <p class="eyebrow">Mappa delle sedi</p>
+    <p>Per vedere la mappa interattiva serve il consenso ai contenuti di Google Maps, che può installare cookie di terze parti.</p>
+    <button type="button" class="btn btn-primary">Accetta e mostra la mappa</button>
+  </div>
+  <ul class="map-list">
+    {points.map((p) => <li><button type="button" data-sede={p.id}><b>{p.city} ({p.region})</b><span>{p.label}</span></button></li>)}
+  </ul>
+</div>
+
+<script>
+  import { getConsent, setConsent } from '../lib/consent';
+
+  type P = { id: string; city: string; region: string; label: string; street: string; phone: string; tel: string; dir: string; pos: [number, number] };
+  const root = document.querySelector<HTMLElement>('.sedi-map');
+
+  // Tavolozza del sito: terra sabbia, acqua blu petrolio chiaro, niente punti d'interesse.
+  const styles = [
+    { elementType: 'geometry', stylers: [{ color: '#ece8e0' }] },
+    { elementType: 'labels.text.fill', stylers: [{ color: '#5b6669' }] },
+    { elementType: 'labels.text.stroke', stylers: [{ color: '#f6f4ef' }] },
+    { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#b9d3d6' }] },
+    { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+    { featureType: 'road', elementType: 'labels', stylers: [{ visibility: 'off' }] },
+    { featureType: 'poi', stylers: [{ visibility: 'off' }] },
+    { featureType: 'transit', stylers: [{ visibility: 'off' }] },
+    { featureType: 'administrative.province', stylers: [{ visibility: 'off' }] },
+    { featureType: 'administrative.country', elementType: 'geometry.stroke', stylers: [{ color: '#1f5560' }, { weight: 1 }] },
+  ];
+
+  const pin = (active: boolean) =>
+    'data:image/svg+xml,' + encodeURIComponent(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="52" viewBox="0 0 40 52"><path d="M20 51C20 51 38 32 38 19A18 18 0 0 0 2 19C2 32 20 51 20 51Z" fill="${active ? '#1f5560' : '#d98a6c'}" stroke="#fff" stroke-width="3"/><circle cx="20" cy="19" r="7" fill="#fff"/></svg>`
+    );
+
+  const load = () => {
+    if (!root || root.classList.contains('is-live')) return;
+    root.classList.add('is-live');
+    (window as any).__lautariMap = draw;
+    const s = document.createElement('script');
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${root.dataset.key}&callback=__lautariMap&loading=async&language=it&region=IT`;
+    s.async = true;
+    document.head.append(s);
+  };
+
+  function draw() {
+    const g = (window as any).google.maps;
+    const points: P[] = JSON.parse(root!.dataset.points!);
+    const map = new g.Map(root!.querySelector('.map-canvas'), {
+      center: { lat: 43.9, lng: 11.2 }, zoom: 6, styles,
+      mapTypeControl: false, streetViewControl: false, fullscreenControl: false, clickableIcons: false,
+      gestureHandling: 'cooperative',
+    });
+    const bounds = new g.LatLngBounds();
+    const info = new g.InfoWindow();
+    // ponytail: google.maps.Marker è deprecato ma supportato; AdvancedMarkerElement richiede un Map ID dalla Cloud Console.
+    const markers = new Map<string, any>();
+    const open = (p: P) => {
+      markers.forEach((m, id) => m.setIcon({ url: pin(id === p.id), scaledSize: new g.Size(34, 44) }));
+      info.setContent(`<div class="map-info"><b>${p.city} (${p.region})</b><span>${p.label}</span><span>${p.street}</span><a href="${p.tel}">${p.phone}</a><a href="${p.dir}" target="_blank" rel="noopener">Indicazioni stradali →</a></div>`);
+      info.open({ map, anchor: markers.get(p.id) });
+      map.panTo({ lat: p.pos[0], lng: p.pos[1] });
+      root!.querySelectorAll<HTMLButtonElement>('[data-sede]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.sede === p.id)));
+    };
+    for (const p of points) {
+      const m = new g.Marker({ map, position: { lat: p.pos[0], lng: p.pos[1] }, title: `${p.city} – ${p.label}`, icon: { url: pin(false), scaledSize: new g.Size(34, 44) } });
+      m.addListener('click', () => open(p));
+      markers.set(p.id, m);
+      bounds.extend(m.getPosition());
+    }
+    map.fitBounds(bounds, 40);
+    root!.querySelectorAll<HTMLButtonElement>('[data-sede]').forEach((b) =>
+      b.addEventListener('click', () => open(points.find((p) => p.id === b.dataset.sede)!))
+    );
+  }
+
+  if (root) {
+    if (getConsent()?.media) load();
+    document.addEventListener('consent', (e) => (e as CustomEvent).detail.media && load());
+    root.querySelector('.map-consent button')!.addEventListener('click', () => setConsent({ media: true }));
+    // Senza mappa, i pulsanti della lista portano alla scheda della sede
+    root.querySelectorAll<HTMLButtonElement>('[data-sede]').forEach((b) =>
+      b.addEventListener('click', () => !root.classList.contains('is-live') && document.getElementById(b.dataset.sede!)?.scrollIntoView({ behavior: 'smooth' }))
+    );
+  }
+</script>
